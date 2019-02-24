@@ -1,9 +1,36 @@
 <html>
 
-<head>Spotify Data Visualization</head>
+<head>
+  <title>Data Visualization</title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
 
 <body>
+  <script>
+    const getCleanData = (csvData) => {
+      const cleanData = []
 
+      csvData.forEach(song => {
+        const { danceability, energy, loudness, speechiness, liveness, valence } = song
+        cleanData.push({
+          danceability,
+          energy,
+          loudness,
+          speechiness,
+          liveness, valence
+        })
+      })
+
+      return cleanData
+    }
+
+    d3.json('https://api.myjson.com/bins/1gzqfy')
+      .then(data => {
+        const cleanData = getCleanData(data)
+        console.log(cleanData)
+      })
+      .catch(error => { console.log(error) })
+  </script>
 </body>
 
 </html>
